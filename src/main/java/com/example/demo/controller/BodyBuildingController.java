@@ -1,6 +1,6 @@
 package com.example.demo.controller;
 
-/// !!!! IMPORTU GAL REIK ???
+
 
 
 import com.example.demo.model.BodyBuilding;
@@ -21,20 +21,12 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.HashMap;
 
-// WEB kontroleris. pazymi MVC valdikli. leidzia viduje naudoti @RequestMapping
-// @RestController anotacija nurodo , jog spring tipo rezultatas turetu buti isspaudinamas klientui toks kok yra.
 
-// @RestController negrazina view
-// kadangi mums riekia grazinti view pagal Spring MVC naudojamas @Controller
 @Controller
-//@EnableAutoConfiguration - zymi konfiguracijos kompnenta. Videju leidzia kurti bean per metodus @Bean
-// Si klases lygio anotacija nurodo Spring karkasui "atspeti" konfiguracija
-// remiantis priklausomybemes (jar bibliotekos) , kurias programuotojas itrauke i projekta
-// siuo atveju ji viekia kartu su main metodu
+
 @EnableAutoConfiguration
 public class BodyBuildingController {
-    // autowire naudojamas automatinei priklausomybiu injekcijai
-    // kad panaudoti @Autowired anotacija riekia pirmiausiai turetu apsirasius @Bean @Configuration klaseje
+
     @Autowired
     private UserService userService;
 
@@ -44,19 +36,15 @@ public class BodyBuildingController {
     @Autowired
     private UserValidator userValidator;
     @Autowired
-    // @Qualifier anotacija kartu su @Autowired patikslina su kuriuo konkreiciai bean susieti priklausomybe
-    // jeigu @Configuration klasjeje yra daugiau negu viena bean @Qualifier anotacija yra privaloma
-    //kitu atveju metama klaida
-    // cibsuder making one of the beans as @Primary updating the consumer to accept multiple beans
-    // or using @Qualifier to identify the bean that shoul be consumed
+
     @Qualifier("NumberService")
     public BodyBuildingService bodyBuildingService;
 
     @GetMapping({"/", "/bodyBuild"})
     String home(Model model) {
-        // jeigu model "number" nepraeina validacijos - per ji grazinamos validacijos klaidos i view
+
         model.addAttribute("number", new BodyBuilding());
-        // graziname JSP faila turi buti talpinami webapp > web-inf > jsp aplanke
+
         return "bodyBuild";
     }
 
@@ -65,26 +53,26 @@ public class BodyBuildingController {
     String bodyBuildingShow(@Valid @ModelAttribute("number") BodyBuilding e, BindingResult br,
                       @RequestParam HashMap<String, String> bodyBuildingTable, ModelMap modelMap) {
 
-        if (br.hasErrors()) { // jeigu validacijos klaidos (zr . number klaseje aprasyta validacija prie kiekvieno skaiciaus)
-            return "bodyBuild"; // vartotojas lieka skaiciuotuvo lange tol kol neistaiso validacijos klaidu
+        if (br.hasErrors()) {
+            return "bodyBuild";
         } else {
             String name = bodyBuildingTable.get("name");
             String surname = bodyBuildingTable.get("surname");
-            int age = Integer.parseInt(bodyBuildingTable.get("age"));
+            String age = bodyBuildingTable.get("age");
             String groups = bodyBuildingTable.get("groups");
 
 
 
-            // ModelMap objektas naudojamas siusti reiksmes is spring MVC Controller i JSP
+
             modelMap.put("name", name);
             modelMap.put("surname", surname);
             modelMap.put("age", age);
             modelMap.put("groups", groups);
 
-            // Kreipiames i service kuris savo ruoztu krepiausi i DAO ir issaugo irasa DB
+
             bodyBuildingService.save(new BodyBuilding(name, surname, age, groups));
 
-            return "bodyBuildingShow";
+            return "bodyBuild";
         }
     }
 
@@ -153,6 +141,8 @@ public class BodyBuildingController {
 
             return "login";
     }
+
+
 }
 
 

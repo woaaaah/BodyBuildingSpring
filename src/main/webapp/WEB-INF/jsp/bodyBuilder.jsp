@@ -1,20 +1,28 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: velni
-  Date: 5/11/2020
-  Time: 11:22 PM
-  To change this template use File | Settings | File Templates.
---%>
+
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
+
+<style>
+    html{
+        height: 100%;
+        width: 100%;
+    }
+    body{
+        background-color: #bfbfbf !important;
+    }
+    table th, td{
+        text-align: center;
+        border: 4px solid #0090a3;
+    }
+</style>
 <head>
-    <title>Skaicius</title>
+    <title>Bodybuilding</title>
     <jsp:include page="header.jsp"/>
     <jsp:include page="menu.jsp"/>
 </head>
 <body class="container">
     <div class="table-responsive">
-        <caption>Skaiciaus informacija</caption>
+        <caption>Contestant information</caption>
         <table class="table table-striped">
             <tr>
                 <td><b>Id:</b></td>
@@ -41,5 +49,4 @@
 <br>
 <a type="button" href="/bodyBuildingTable" class="button">Back</a>
 </body>
-<jsp:include page="footer.jsp"/>
 </html>

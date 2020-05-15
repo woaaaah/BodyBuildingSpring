@@ -14,7 +14,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @Configuration
-// Vartotoju autentifikavimui ir autorizacijai
+
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
@@ -22,7 +22,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private UserDetailsService userDetailsService;
 
-    //kriptografijos algoritmas masis funkcijos slaptazodziu kodavimui
+
     @Bean
     public BCryptPasswordEncoder bCryptPasswordEncoder() {
         return new BCryptPasswordEncoder();
@@ -32,14 +32,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
             .authorizeRequests()
-                .antMatchers("/resources/**", "/bodybuildingShow", "/register").permitAll() // leidzia registruotis neprisijungus
-                .anyRequest().authenticated() // kiti puslapiai pasiekiami tik prisijungus
+                .antMatchers("/resources/**", "/bodybuildingShow", "/register").permitAll()
+                .anyRequest().authenticated()
                 .and()
-            .formLogin() // neprisijungusiam vartotojui leidziama prieiti prie prisijungimo puslapio
+            .formLogin()
                 .loginPage("/login")
                 .permitAll()
                 .and()
-                .logout() // leidzime visiems atsijungti
+                .logout()
                 .permitAll();
     }
 
@@ -52,4 +52,5 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userDetailsService).passwordEncoder(bCryptPasswordEncoder());
     }
+
 }

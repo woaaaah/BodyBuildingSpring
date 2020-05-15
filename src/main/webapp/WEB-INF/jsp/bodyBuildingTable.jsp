@@ -1,26 +1,24 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: velni
-  Date: 5/11/2020
-  Time: 9:54 PM
-  To change this template use File | Settings | File Templates.
---%>
+
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <style>
-    table{
+    table th, td{
+        text-align: center;
+        border: 4px solid #0090a3;
+    }
+    .container{
         background-color: #bfbfbf;
-        border: 6px solid #0090a3;
     }
 </style>
 <head>
-    <title>Skaiciai</title>
+    <title>BodybuildingTable</title>
     <jsp:include page="header.jsp"/>
     <jsp:include page="menu.jsp"/>
 </head>
 <body class="container">
+<h1>Registered Contestants List</h1>
     <div class="table-responsive">
         <table class="table table-striped">
             <tr>
@@ -28,7 +26,7 @@
                 <th>Surname</th>
                 <th>Age</th>
                 <th>Group</th>
-                <th>Veiksmas</th>
+                <th>Actions</th>
             </tr>
 
             <c:forEach var="bodyBuilder" items="${bodyBuildingTable}">
@@ -61,6 +59,5 @@
             </c:forEach>
         </table>
     </div>
-<jsp:include page="footer.jsp"/>
 </body>
 </html>

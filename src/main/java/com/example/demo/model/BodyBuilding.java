@@ -2,6 +2,7 @@ package com.example.demo.model;
 
 import javax.persistence.*;
 import javax.validation.constraints.Min;
+import javax.validation.constraints.Pattern;
 
 @Entity
 @Table(name = "bodybuildingspring")
@@ -12,13 +13,16 @@ public class BodyBuilding {
         private int id;
 
     @Column(name = "name")
+    @Pattern(regexp = "^[a-zA-Z]+$", message = "Only Letters allowed")
     private String name;
 
     @Column(name = "surname")
+    @Pattern(regexp = "^[a-zA-Z]+$", message = "Only Letters allowed")
     private String surname;
 
     @Column(name = "age")
-    private int age;
+    @Pattern(regexp = "^-?\\d+$", message = "Only numbers allowed")
+    private String age;
 
 
     @Column(name = "groups")
@@ -29,7 +33,7 @@ public class BodyBuilding {
     public BodyBuilding() {
     }
 
-    public BodyBuilding(String name, String surname, int age, String groups) {
+    public BodyBuilding(String name, String surname, String age, String groups) {
         this.name = name;
         this.surname = surname;
         this.age = age;
@@ -38,7 +42,7 @@ public class BodyBuilding {
 
 
 
-    public BodyBuilding(int id, String name, String surname, int age, String groups){
+    public BodyBuilding(int id, String name, String surname, String age, String groups){
         this.id = id;
         this.name = name;
         this.surname = surname;
@@ -70,11 +74,11 @@ public class BodyBuilding {
         this.surname = surname;
     }
 
-    public int getAge() {
+    public String getAge() {
         return age;
     }
 
-    public void setAge(int age) {
+    public void setAge(String age) {
         this.age = age;
     }
 

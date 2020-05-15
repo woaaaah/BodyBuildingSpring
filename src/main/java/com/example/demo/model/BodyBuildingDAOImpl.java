@@ -67,5 +67,6 @@ public class BodyBuildingDAOImpl implements BodyBuildingDAO {
         entityManager.getTransaction().commit();
         entityManager.close();
     }
+    
 
 }
